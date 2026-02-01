@@ -64,18 +64,22 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(height: 30),
             Expanded(
-              child: Dismissible(
-                key: Key(DateTime.now().toString()),
-                onDismissed: (direction) {
-                  _contactList.removeAt(index)
+              child: ListView.builder(
+                itemCount: _contactList.length,
+                itemBuilder: (context, index) {
+                  final person = _contactList[index];
+                  return Dismissible(
+                    key: Key(DateTime.now().toString()),
+                    onDismissed: (direction) {
+                      _contactList.removeAt(index);
+                      setState(() {
+                        
+                      });
+                    },
+
+                    child: ContactCard(person: person),
+                  );
                 },
-                child: ListView.builder(
-                  itemCount: _contactList.length,
-                  itemBuilder: (context, index) {
-                    final person = _contactList[index];
-                    return ContactCard(person: person);
-                  },
-                ),
               ),
             ),
           ],
